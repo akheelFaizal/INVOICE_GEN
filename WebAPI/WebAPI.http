@@ -21,6 +21,7 @@ Content-Type: application/json
 
 ###
 
+
 POST {{WebAPI_HostAddress}}/api/auth/refresh
 Content-Type: application/json
 
@@ -33,3 +34,29 @@ Content-Type: application/json
 
 GET {{WebAPI_HostAddress}}/api/auth/all-users
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWtoZWVsQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI3NTkxMGRiNC05ZDg1LTRjOTQtYjJiZC01YWQ2ZjY3MDdiYmIiLCJleHAiOjE3NzU5MTE1NjUsImlzcyI6Ikludm9pY2VTeXN0ZW0iLCJhdWQiOiJJbnZvaWNlU3lzdGVtIn0.qj_FR2WfXFZ-Kwl0eYKjErh6denEVzuwWA-yNDHy_50
+
+###
+
+POST {{WebAPI_HostAddress}}/api/role/create
+Content-Type: application/json
+
+{
+    "name" : "Admin"
+}
+
+###
+
+GET {{WebAPI_HostAddress}}/api/role/all
+
+###
+
+PUT {{WebAPI_HostAddress}}/api/role/update/5960c0fe-3d18-412f-93f5-12b55b922f2d
+Content-Type: application/json
+
+{
+    "name" : "Staff"
+}
+
+###
+
+DELETE {{WebAPI_HostAddress}}/api/role/delete/5960c0fe-3d18-412f-93f5-12b55b922f2d

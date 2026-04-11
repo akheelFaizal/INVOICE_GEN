@@ -1,5 +1,6 @@
 using System.Text;
 using Application.Features.Authentication.Interfaces;
+using Application.Features.Permission.Interfaces;
 using Domain.Interfaces;
 using Infrastructure.Data;
 using Infrastructure.Repositories;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlite(builder
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IRoleInterface, RoleRepository>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {

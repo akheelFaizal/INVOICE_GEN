@@ -4,7 +4,8 @@ namespace Domain.Entities;
 
 public class UserRole
 {
-    public string Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
+
     public string UserId { get; set; }
     public User User { get; set; }
     
