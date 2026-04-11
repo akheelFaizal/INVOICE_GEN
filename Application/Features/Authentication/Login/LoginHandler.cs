@@ -45,6 +45,7 @@ public class LoginHandler
         var token = _tokenService.GenerateToken(existing);
 
         var refreshToken = _tokenService.GenerateRefreshToken();
+
         var refreshTokenEntity = new RefreshToken
         {
             Token = refreshToken,

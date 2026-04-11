@@ -2,7 +2,7 @@ using System;
 using Application.Features.Authentication.Interfaces;
 using Domain.Interfaces;
 
-namespace Application.Features.Authentication.RefreshToken;
+namespace Application.Features.Authentication.RefreshTokenFeature;
 
 public class RefreshTokenHandler
 {

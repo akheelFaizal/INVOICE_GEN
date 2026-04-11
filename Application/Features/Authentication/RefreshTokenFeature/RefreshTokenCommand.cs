@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.Features.Authentication.RefreshToken;
+namespace Application.Features.Authentication.RefreshTokenFeature;
 
 public class RefreshTokenCommand
 {
