@@ -21,11 +21,18 @@ public class TokenService : ITokenService
     }
     public string GenerateToken(User user)
     {
-        var claims = new[]
+        var claims = new List<Claim>
         {
             new Claim(ClaimTypes.Name, user.Email),
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
         };
+        if(user.UserRoles != null)
+        {
+            foreach (var userRole in user.UserRoles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
+            }
+        }
         var secretKey = _configuration["Jwt:SecretKey"];
 
         var key = new SymmetricSecurityKey(
@@ -37,7 +44,7 @@ public class TokenService : ITokenService
             issuer: "InvoiceSystem",
             audience: "InvoiceSystem",
             claims: claims,
-            expires: DateTime.Now.AddHours(2),
+            expires: DateTime.UtcNow.AddMinutes(15),
             signingCredentials: creds
         );
 

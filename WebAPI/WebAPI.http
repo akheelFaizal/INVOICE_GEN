@@ -27,3 +27,9 @@ Content-Type: application/json
 {
     "refreshToken": "0LkkfT4JPceNXFeqxcn1Yuvl4CpRundvTTRYTNuJvlTH1jB4wfV8DxpKFf/GGSmlbQn166QMQ6wxDV6GnXc0Yw=="
 }
+
+
+###
+
+GET {{WebAPI_HostAddress}}/api/auth/all-users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWtoZWVsQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI3NTkxMGRiNC05ZDg1LTRjOTQtYjJiZC01YWQ2ZjY3MDdiYmIiLCJleHAiOjE3NzU5MTE1NjUsImlzcyI6Ikludm9pY2VTeXN0ZW0iLCJhdWQiOiJJbnZvaWNlU3lzdGVtIn0.qj_FR2WfXFZ-Kwl0eYKjErh6denEVzuwWA-yNDHy_50
