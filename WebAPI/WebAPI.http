@@ -18,3 +18,12 @@ Content-Type: application/json
     "email": "akheel@example.com",
     "password": "akheel123"
 }
+
+###
+
+POST {{WebAPI_HostAddress}}/api/auth/refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "0LkkfT4JPceNXFeqxcn1Yuvl4CpRundvTTRYTNuJvlTH1jB4wfV8DxpKFf/GGSmlbQn166QMQ6wxDV6GnXc0Yw=="
+}
