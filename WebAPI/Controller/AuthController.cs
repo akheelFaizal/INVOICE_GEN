@@ -1,6 +1,6 @@
 using Application.Features.Authentication.Interfaces;
 using Application.Features.Authentication.Login;
-using Application.Features.Authentication.RefreshToken;
+using Application.Features.Authentication.RefreshTokenFeature;
 using Application.Features.Authentication.Register;
 using Domain.Interfaces;
 using Microsoft.AspNetCore.Mvc;
