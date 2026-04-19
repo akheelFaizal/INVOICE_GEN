@@ -71,3 +71,5 @@ PublishProfiles/
 *.db
 *.sqlite
 *.sqlite3
+
+WebAPI.http
