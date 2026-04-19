@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.Features.Permission.DeleteRole;
+namespace Application.Features.RoleOperations.DeleteRole;
 
 public class DeleteRoleCommand
 {

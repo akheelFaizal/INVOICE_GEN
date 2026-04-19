@@ -17,12 +17,15 @@ namespace WebAPI.Controller
         private readonly LoginHandler _loginHandler;
         private readonly RefreshTokenHandler _refreshToken;
         private readonly LogoutHandler _logoutHandler;
-        public AuthController(IUserRepository userRepository, ITokenService tokenService, IRefreshTokenRepository refreshTokenRepository)
+        public AuthController(RegisterHandler registerHandler, 
+                         LoginHandler loginHandler,
+                         RefreshTokenHandler refreshTokenHandler,
+                         LogoutHandler logoutHandler)
         {
-            _registerHandler = new RegisterHandler(userRepository);
-            _loginHandler = new LoginHandler(userRepository, tokenService, refreshTokenRepository);    
-            _refreshToken = new RefreshTokenHandler(refreshTokenRepository, userRepository, tokenService);    
-            _logoutHandler = new LogoutHandler(refreshTokenRepository);
+            _registerHandler = registerHandler;
+            _loginHandler = loginHandler;
+            _refreshToken = refreshTokenHandler;
+            _logoutHandler = logoutHandler;
         }
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterCommand command)

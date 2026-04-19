@@ -33,7 +33,7 @@ Content-Type: application/json
 ###
 
 GET {{WebAPI_HostAddress}}/api/auth/all-users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWtoZWVsQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI3NTkxMGRiNC05ZDg1LTRjOTQtYjJiZC01YWQ2ZjY3MDdiYmIiLCJleHAiOjE3NzU5MTE1NjUsImlzcyI6Ikludm9pY2VTeXN0ZW0iLCJhdWQiOiJJbnZvaWNlU3lzdGVtIn0.qj_FR2WfXFZ-Kwl0eYKjErh6denEVzuwWA-yNDHy_50
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWtoZWVsQGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiI3NTkxMGRiNC05ZDg1LTRjOTQtYjJiZC01YWQ2ZjY3MDdiYmIiLCJleHAiOjE3NzU5ODMxNjUsImlzcyI6Ikludm9pY2VTeXN0ZW0iLCJhdWQiOiJJbnZvaWNlU3lzdGVtIn0.k_SOnoMclhvsrAMuF16JEtZkv8JkA8MGTzb2hJE3RYk
 
 ###
 
@@ -41,7 +41,7 @@ POST {{WebAPI_HostAddress}}/api/role/create
 Content-Type: application/json
 
 {
-    "name" : "Admin"
+    "name" : "Accountant"
 }
 
 ###
@@ -59,4 +59,25 @@ Content-Type: application/json
 
 ###
 
-DELETE {{WebAPI_HostAddress}}/api/role/delete/5960c0fe-3d18-412f-93f5-12b55b922f2d
+DELETE {{WebAPI_HostAddress}}/api/role/delete/62247aa1-24a0-4730-b070-76ce38ea085e
+
+###
+
+POST {{WebAPI_HostAddress}}/api/role/assign/075ba392-b28e-4360-a5b3-f3fd85225cfc/user/75910DB4-9D85-4C94-B2BD-5AD6F6707BBB	
+
+###
+
+POST {{WebAPI_HostAddress}}/api/permission/add
+Content-Type: application/json
+
+{
+    "name" : "ManageUsers"
+} 
+
+###
+
+GET {{WebAPI_HostAddress}}/api/permission/all
+
+###
+
+POST {{WebAPI_HostAddress}}/api/permission/assign/075ba392-b28e-4360-a5b3-f3fd85225cfc/permission/78facfec-f35a-48ad-a9f1-7c9fdb984d68

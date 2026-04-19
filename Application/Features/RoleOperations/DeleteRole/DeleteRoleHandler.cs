@@ -1,8 +1,8 @@
 using System;
-using Application.Features.Permission.Interfaces;
+using Application.Features.RoleOperations.Interfaces;
 using Domain.Entities;
 
-namespace Application.Features.Permission.DeleteRole;
+namespace Application.Features.RoleOperations.DeleteRole;
 
 public class DeleteRoleHandler
 {

@@ -1,9 +1,9 @@
 using System;
-using Application.Features.Permission.Interfaces;
-using Application.Features.Permission.RoleFeature;
+using Application.Features.RoleOperations.Interfaces;
+using Application.Features.RoleOperations.RoleFeature;
 using Domain.Entities;
 
-namespace Application.Features.Permission.UpdateRole;
+namespace Application.Features.RoleOperations.UpdateRole;
 
 public class UpdateRoleHandler
 {

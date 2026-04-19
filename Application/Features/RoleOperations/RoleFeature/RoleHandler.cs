@@ -1,8 +1,8 @@
 using System;
-using Application.Features.Permission.Interfaces;
+using Application.Features.RoleOperations.Interfaces;
 using Domain.Entities;
 
-namespace Application.Features.Permission.RoleFeature;
+namespace Application.Features.RoleOperations.RoleFeature;
 
 public class RoleHandler
 {

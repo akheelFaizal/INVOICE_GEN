@@ -1,6 +1,6 @@
 using System;
 
-namespace Application.Features.Permission.RoleFeature;
+namespace Application.Features.RoleOperations.RoleFeature;
 
 public class RoleCommand
 {

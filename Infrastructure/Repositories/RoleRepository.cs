@@ -1,5 +1,5 @@
 using System;
-using Application.Features.Permission.Interfaces;
+using Application.Features.RoleOperations.Interfaces;
 using Domain.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -43,5 +43,29 @@ public class RoleRepository : IRoleInterface
         _context.Roles.Remove(role);
         await _context.SaveChangesAsync();
         return "Role deleted successfully.";
+    }
+
+    public async Task<string> AssignRoleToUser(Guid userId, Guid roleId)
+    {
+        var user = await _context.Users.FindAsync(userId);
+        if (user == null)
+        {
+            return "User not found.";
+        }
+
+        var role = await _context.Roles.FindAsync(roleId);
+        if (role == null)
+        {
+            return "Role not found.";
+        }
+
+        var userRole = new UserRole
+        {
+            UserId = userId,
+            RoleId = roleId
+        };
+        await _context.UserRoles.AddAsync(userRole);
+        await _context.SaveChangesAsync();
+        return "Role assigned to user successfully.";
     }
 }

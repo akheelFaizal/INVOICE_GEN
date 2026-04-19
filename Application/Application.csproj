@@ -14,11 +14,14 @@
     <Folder Include="Features\Authentication\Login\" />
     <Folder Include="Features\Authentication\Logout\" />
     <Folder Include="Features\Authentication\RefreshToken\" />
+    <Folder Include="Features\PermissionOperations\AssignPermission\" />
+    <Folder Include="Features\PermissionOperations\GetPermission\" />
     <Folder Include="Features\Permission\DeleteRole\" />
     <Folder Include="Features\Permission\GetRoles\" />
     <Folder Include="Features\Permission\Interfaces\" />
     <Folder Include="Features\Permission\RoleFeature\" />
     <Folder Include="Features\Permission\UpdateRole\" />
+    <Folder Include="Features\RoleOperations\AssignRole\" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -1,8 +1,9 @@
-using Application.Features.Permission.DeleteRole;
-using Application.Features.Permission.GetRoles;
-using Application.Features.Permission.Interfaces;
-using Application.Features.Permission.RoleFeature;
-using Application.Features.Permission.UpdateRole;
+using Application.Features.RoleOperations.AssignRole;
+using Application.Features.RoleOperations.DeleteRole;
+using Application.Features.RoleOperations.GetRoles;
+using Application.Features.RoleOperations.Interfaces;
+using Application.Features.RoleOperations.RoleFeature;
+using Application.Features.RoleOperations.UpdateRole;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,14 +17,16 @@ namespace WebAPI.Controller
         private readonly GetRoleHandler _getRoleHandler;
         private readonly UpdateRoleHandler _updateRoleHandler;
         private readonly DeleteRoleHandler _deleteRoleHandler;
-        public RoleController(IRoleInterface roleInterface)
+        private readonly AssignRoleHandler _assignRoleHandler;
+        public RoleController(RoleHandler roleHandler, GetRoleHandler getRoleHandler, UpdateRoleHandler updateRoleHandler, DeleteRoleHandler deleteRoleHandler, AssignRoleHandler assignRoleHandler)
         {
-            _roleHandler = new RoleHandler(roleInterface);
-            _getRoleHandler = new GetRoleHandler(roleInterface);
-            _updateRoleHandler = new UpdateRoleHandler(roleInterface);
-            _deleteRoleHandler = new DeleteRoleHandler(roleInterface);
-        }  
-
+            _roleHandler = roleHandler;
+            _getRoleHandler = getRoleHandler;
+            _updateRoleHandler = updateRoleHandler;
+            _deleteRoleHandler = deleteRoleHandler;
+            _assignRoleHandler = assignRoleHandler;
+        }
+        
         [HttpPost("create")]
         public async Task<IActionResult> CreateRole(RoleCommand command)
         {
@@ -50,6 +53,14 @@ namespace WebAPI.Controller
         {
             var command = new DeleteRoleCommand { RoleId = roleId };
             var result = await _deleteRoleHandler.Handle(command);
+            return Ok(result);
+        }
+
+        [HttpPost("assign/{roleId}/user/{userId}")]
+        public async Task<IActionResult> AssignRole(Guid roleId, Guid userId)
+        {
+            var command = new AssignRoleCommand { RoleId = roleId, UserId = userId };
+            var result = await _assignRoleHandler.Handle(command);
             return Ok(result);
         }
     }

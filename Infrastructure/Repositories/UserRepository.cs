@@ -20,7 +20,7 @@ public class UserRepository : IUserRepository
         await _context.SaveChangesAsync();
     }
 
-    public async Task<User> GetById(Guid Id)
+    public async Task<User?> GetById(Guid Id)
     {
         return await _context.Users.FindAsync(Id);
     }
@@ -29,7 +29,9 @@ public class UserRepository : IUserRepository
     {
         return await _context.Users
         .Include(u => u.UserRoles)
-        .ThenInclude(ur => ur.Role)
-        .FirstOrDefaultAsync(x => x.Email == email);
-    }
+            .ThenInclude(ur => ur.Role)
+                .ThenInclude(r => r.RolePermissions)
+                        .ThenInclude(rp => rp.Permission)
+                            .FirstOrDefaultAsync(x => x.Email == email);
+    } 
  }

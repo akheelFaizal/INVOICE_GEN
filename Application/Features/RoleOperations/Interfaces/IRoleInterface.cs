@@ -1,6 +1,6 @@
 using System;
 using Domain.Entities;
-namespace Application.Features.Permission.Interfaces;
+namespace Application.Features.RoleOperations.Interfaces;
 
 public interface IRoleInterface
 { 
@@ -8,5 +8,6 @@ public interface IRoleInterface
     public Task<List<Role>> GetRoles();
     public Task<string> UpdateRole(Role role);
     public Task<string> DeleteRole(Role role);
+    public Task<string> AssignRoleToUser(Guid userId, Guid roleId);
     
 }
