@@ -12,6 +12,13 @@
       <Project Path="Modules/Invoicing/Core/InvoiceSystem.Invoicing.Core.csproj" />
       <Project Path="Modules/Invoicing/Infrastructure/InvoiceSystem.Invoicing.Infrastructure.csproj" />
     </Folder>
+    <Folder Name="/Modules/Clients/">
+      <Project Path="Modules/Clients/API/InvoiceSystem.Clients.API.csproj" />
+      <Project Path="Modules/Clients/Application/InvoiceSystem.Clients.Application.csproj" />
+      <Project Path="Modules/Clients/Core/InvoiceSystem.Clients.Core.csproj" />
+      <Project Path="Modules/Clients/Infrastructure/InvoiceSystem.Clients.Infrastructure.csproj" />
+    </Folder>
+
   </Folder>
   <Project Path="Shared/Shared.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
