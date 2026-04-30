@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\InvoiceSystem.Invoicing.Core.csproj" />
-    <ProjectReference Include="..\Application\InvoiceSystem.Invoicing.Application.csproj" />
+    <ProjectReference Include="..\Application\InvoiceSystem.Identity.Application.csproj" />
+    <ProjectReference Include="..\Core\InvoiceSystem.Identity.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

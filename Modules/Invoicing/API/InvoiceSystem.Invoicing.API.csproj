@@ -2,6 +2,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Core\InvoiceSystem.Invoicing.Core.csproj" />
+    <ProjectReference Include="..\Application\InvoiceSystem.Invoicing.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

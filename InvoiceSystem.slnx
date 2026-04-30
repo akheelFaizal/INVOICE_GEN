@@ -1,7 +1,18 @@
 <Solution>
-  <Project Path="Application/Application.csproj" />
-  <Project Path="Domain/Domain.csproj" />
-  <Project Path="Infrastructure/Infrastructure.csproj" />
+  <Folder Name="/Modules/">
+    <Folder Name="/Modules/Identity/">
+      <Project Path="Modules/Identity/API/InvoiceSystem.Identity.API.csproj" />
+      <Project Path="Modules/Identity/Application/InvoiceSystem.Identity.Application.csproj" />
+      <Project Path="Modules/Identity/Core/InvoiceSystem.Identity.Core.csproj" />
+      <Project Path="Modules/Identity/Infrastructure/InvoiceSystem.Identity.Infrastructure.csproj" />
+    </Folder>
+    <Folder Name="/Modules/Invoicing/">
+      <Project Path="Modules/Invoicing/API/InvoiceSystem.Invoicing.API.csproj" />
+      <Project Path="Modules/Invoicing/Application/InvoiceSystem.Invoicing.Application.csproj" />
+      <Project Path="Modules/Invoicing/Core/InvoiceSystem.Invoicing.Core.csproj" />
+      <Project Path="Modules/Invoicing/Infrastructure/InvoiceSystem.Invoicing.Infrastructure.csproj" />
+    </Folder>
+  </Folder>
   <Project Path="Shared/Shared.csproj" />
   <Project Path="WebAPI/WebAPI.csproj" />
 </Solution>

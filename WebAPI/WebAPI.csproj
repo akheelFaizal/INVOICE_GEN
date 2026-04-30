@@ -16,12 +16,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\Application.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <Folder Include="Controller\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controller\" />
+    <ProjectReference Include="..\Modules\Identity\API\InvoiceSystem.Identity.API.csproj" />
+    <ProjectReference Include="..\Modules\Identity\Infrastructure\InvoiceSystem.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Invoicing\API\InvoiceSystem.Invoicing.API.csproj" />
+    <ProjectReference Include="..\Modules\Invoicing\Infrastructure\InvoiceSystem.Invoicing.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
