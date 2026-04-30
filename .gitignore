@@ -73,3 +73,5 @@ PublishProfiles/
 *.sqlite3
 
 WebAPI.http
+# Antigravity Skills
+.agent/skills/
