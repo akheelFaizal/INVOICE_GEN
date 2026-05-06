@@ -28,3 +28,13 @@ public record PaymentRequest(decimal Amount, string PaymentMethod);
 public record PaymentResponse(Guid Id, decimal Amount, DateTime Date, string PaymentMethod);
 
 public record UpdateStatusRequest(string Status);
+
+public record InvoiceBalanceResponse(decimal TotalAmount, decimal TotalPaid, decimal Balance);
+
+public record DashboardSummaryResponse(
+    int TotalInvoices,
+    decimal TotalBilled,
+    decimal TotalPaid,
+    decimal TotalOutstanding,
+    int PendingInvoices,
+    int OverdueInvoices);

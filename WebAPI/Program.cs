@@ -29,6 +29,18 @@ using InvoiceSystem.Invoicing.Infrastructure.Repositories;
 using InvoiceSystem.Invoicing.Infrastructure.Data;
 using InvoiceSystem.Invoicing.Infrastructure.Services;
 
+// Expenses Namespaces
+using InvoiceSystem.Expenses.Application.Interfaces;
+using InvoiceSystem.Expenses.Application.Services;
+using InvoiceSystem.Expenses.Core.Interfaces;
+using InvoiceSystem.Expenses.Infrastructure.Repositories;
+using InvoiceSystem.Expenses.Infrastructure.Data;
+using InvoiceSystem.Expenses.Infrastructure.Services;
+
+// Reporting Namespaces
+using InvoiceSystem.Reporting.Application.Interfaces;
+using InvoiceSystem.Reporting.Application.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add controllers
@@ -44,13 +56,15 @@ builder.Services.AddDbContext<ClientDbContext>(options =>
 builder.Services.AddDbContext<InvoicingDbContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddDbContext<ExpensesDbContext>(options => 
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 // Identity Services
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IRoleInterface, RoleRepository>();
 builder.Services.AddScoped<IPermissionInterface, PermissionRepository>();
-
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
@@ -63,6 +77,18 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 builder.Services.AddScoped<IInvoiceIntegrationService, InvoiceIntegrationService>();
+builder.Services.AddScoped<IInvoiceDataService, InvoiceDataService>();
+
+// Expenses Services
+builder.Services.AddScoped<IExpenseRepository, ExpenseRepository>();
+builder.Services.AddScoped<IExpenseCategoryRepository, ExpenseCategoryRepository>();
+builder.Services.AddScoped<IExpenseService, ExpenseService>();
+builder.Services.AddScoped<IExpenseCategoryService, ExpenseCategoryService>();
+builder.Services.AddScoped<IExpenseDataService, ExpenseDataService>();
+
+// Reporting Services
+builder.Services.AddScoped<ReportService>();
+builder.Services.AddScoped<AnalyticsService>();
 
 // Authentication
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -88,12 +114,6 @@ builder.Services.AddAuthorization(options =>
 });
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    // Swagger or other dev tools can be added here
-}
 
 app.UseAuthentication();
 app.UseAuthorization();

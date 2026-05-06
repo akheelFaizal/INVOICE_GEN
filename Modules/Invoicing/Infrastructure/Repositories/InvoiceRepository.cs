@@ -88,4 +88,9 @@ public class InvoiceRepository : IInvoiceRepository
         await _context.Payments.AddAsync(payment);
         await _context.SaveChangesAsync();
     }
+
+    public async Task<Payment?> GetPaymentByIdAsync(Guid id)
+    {
+        return await _context.Payments.FindAsync(id);
+    }
 }

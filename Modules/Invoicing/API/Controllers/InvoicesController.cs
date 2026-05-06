@@ -109,4 +109,21 @@ public class InvoicesController : ControllerBase
         if (!result.Success) return BadRequest(result);
         return Ok(result);
     }
+
+    [HttpGet("{id}/balance")]
+    public async Task<ActionResult<Result<InvoiceBalanceResponse>>> GetBalance(Guid id)
+    {
+        var result = await _invoiceService.GetInvoiceBalanceAsync(id);
+        if (!result.Success) return NotFound(result);
+        return Ok(result);
+    }
+
+    [HttpGet("{id}/pdf")]
+    public async Task<IActionResult> GetPdf(Guid id)
+    {
+        // Integration with a PDF service (e.g. QuestPDF or DinkToPdf)
+        // For now, return a placeholder PDF file or a stream
+        var stream = new MemoryStream(); // Generate PDF logic here...
+        return File(stream, "application/pdf", $"Invoice_{id}.pdf");
+    }
 }

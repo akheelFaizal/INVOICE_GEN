@@ -92,7 +92,6 @@ public class InvoiceService : IInvoiceService
 
         await _invoiceRepository.AddItemAsync(item);
         
-        // Optionally update invoice amount
         invoice.Amount += item.Total;
         await _invoiceRepository.UpdateAsync(invoice);
 
@@ -107,7 +106,6 @@ public class InvoiceService : IInvoiceService
         var item = invoice.Items.FirstOrDefault(i => i.Id == itemId);
         if (item == null) return Result<InvoiceItemResponse>.FailureResult("Item not found");
 
-        // Adjust invoice amount
         invoice.Amount -= item.Total;
         
         item.Description = request.Description;
@@ -173,9 +171,47 @@ public class InvoiceService : IInvoiceService
 
         await _invoiceRepository.AddPaymentAsync(payment);
 
-        // Logic for auto-updating status if fully paid could go here
-        
         return Result<PaymentResponse>.SuccessResult(MapToPaymentResponse(payment));
+    }
+
+    public async Task<Result<PaymentResponse>> GetPaymentByIdAsync(Guid id)
+    {
+        var payment = await _invoiceRepository.GetPaymentByIdAsync(id);
+        if (payment == null) return Result<PaymentResponse>.FailureResult("Payment not found");
+
+        return Result<PaymentResponse>.SuccessResult(MapToPaymentResponse(payment));
+    }
+
+    public async Task<Result<InvoiceBalanceResponse>> GetInvoiceBalanceAsync(Guid id)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(id);
+        if (invoice == null) return Result<InvoiceBalanceResponse>.FailureResult("Invoice not found");
+
+        var totalPaid = invoice.Payments.Sum(p => p.Amount);
+        var balance = invoice.Amount - totalPaid;
+
+        return Result<InvoiceBalanceResponse>.SuccessResult(new InvoiceBalanceResponse(invoice.Amount, totalPaid, balance));
+    }
+
+    public async Task<Result<DashboardSummaryResponse>> GetDashboardSummaryAsync()
+    {
+        var invoices = await _invoiceRepository.GetAllAsync();
+        
+        var totalInvoices = invoices.Count();
+        var totalBilled = invoices.Sum(i => i.Amount);
+        var totalPaid = invoices.Sum(i => i.Payments.Sum(p => p.Amount));
+        var totalOutstanding = totalBilled - totalPaid;
+        var pendingInvoices = invoices.Count(i => i.Status == "Pending");
+        var overdueInvoices = invoices.Count(i => i.Status != "Paid" && i.DueDate < DateTime.UtcNow);
+
+        return Result<DashboardSummaryResponse>.SuccessResult(new DashboardSummaryResponse(
+            totalInvoices,
+            totalBilled,
+            totalPaid,
+            totalOutstanding,
+            pendingInvoices,
+            overdueInvoices
+        ));
     }
 
     private static InvoiceResponse MapToResponse(Invoice invoice)

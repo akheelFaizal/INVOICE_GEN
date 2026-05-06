@@ -22,4 +22,8 @@ public interface IInvoiceService
 
     Task<Result<IEnumerable<PaymentResponse>>> GetPaymentsAsync(Guid invoiceId);
     Task<Result<PaymentResponse>> AddPaymentAsync(Guid invoiceId, PaymentRequest request);
+    Task<Result<PaymentResponse>> GetPaymentByIdAsync(Guid id);
+
+    Task<Result<InvoiceBalanceResponse>> GetInvoiceBalanceAsync(Guid id);
+    Task<Result<DashboardSummaryResponse>> GetDashboardSummaryAsync();
 }

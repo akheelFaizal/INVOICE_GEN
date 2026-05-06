@@ -18,4 +18,5 @@ public interface IInvoiceRepository
     Task UpdateItemAsync(InvoiceItem item);
     Task RemoveItemAsync(Guid itemId);
     Task AddPaymentAsync(Payment payment);
+    Task<Payment?> GetPaymentByIdAsync(Guid id);
 }
