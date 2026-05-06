@@ -9,5 +9,7 @@ public interface IRoleInterface
     public Task<string> UpdateRole(Role role);
     public Task<string> DeleteRole(Role role);
     public Task<string> AssignRoleToUser(Guid userId, Guid roleId);
-    
+    public Task<Role?> GetByIdAsync(Guid id);
+    public Task<IEnumerable<RolePermission>> GetRolePermissionsAsync(Guid id);
+    public Task AssignPermissionsToRole(Guid roleId, IEnumerable<Guid> permissionIds);
 }

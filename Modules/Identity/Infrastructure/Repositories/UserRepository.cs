@@ -34,4 +34,23 @@ public class UserRepository : IUserRepository
                         .ThenInclude(rp => rp.Permission)
                             .FirstOrDefaultAsync(x => x.Email == email);
     } 
+    public async Task<IEnumerable<User>> GetAllUsers()
+    {
+        return await _context.Users
+            .Include(u => u.UserRoles)
+                .ThenInclude(ur => ur.Role)
+            .ToListAsync();
+    }
+
+    public async Task UpdateUser(User user)
+    {
+        _context.Users.Update(user);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task DeleteUser(User user)
+    {
+        _context.Users.Remove(user);
+        await _context.SaveChangesAsync();
+    }
  }

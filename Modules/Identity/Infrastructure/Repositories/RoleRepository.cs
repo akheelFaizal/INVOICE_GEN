@@ -68,4 +68,34 @@ public class RoleRepository : IRoleInterface
         await _context.SaveChangesAsync();
         return "Role assigned to user successfully.";
     }
+
+    public async Task<Role?> GetByIdAsync(Guid id)
+    {
+        return await _context.Roles.FindAsync(id);
+    }
+
+    public async Task<IEnumerable<RolePermission>> GetRolePermissionsAsync(Guid id)
+    {
+        return await _context.RolePermissions
+            .Include(rp => rp.Permission)
+            .Where(rp => rp.RoleId == id)
+            .ToListAsync();
+    }
+
+    public async Task AssignPermissionsToRole(Guid roleId, IEnumerable<Guid> permissionIds)
+    {
+        // First, clear existing permissions for this role
+        var existingPermissions = await _context.RolePermissions.Where(rp => rp.RoleId == roleId).ToListAsync();
+        _context.RolePermissions.RemoveRange(existingPermissions);
+
+        // Add new permissions
+        var newRolePermissions = permissionIds.Select(permissionId => new RolePermission
+        {
+            RoleId = roleId,
+            PermissionId = permissionId
+        });
+
+        await _context.RolePermissions.AddRangeAsync(newRolePermissions);
+        await _context.SaveChangesAsync();
+    }
 }
