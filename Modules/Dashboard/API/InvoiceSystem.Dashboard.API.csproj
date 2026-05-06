@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <ItemGroup>
-    <ProjectReference Include="..\Application\InvoiceSystem.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\Invoicing\Application\InvoiceSystem.Invoicing.Application.csproj" />
     <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
@@ -14,5 +13,4 @@
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
 </Project>

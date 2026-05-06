@@ -26,6 +26,11 @@
     <ProjectReference Include="..\Modules\Invoicing\Infrastructure\InvoiceSystem.Invoicing.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Clients\API\InvoiceSystem.Clients.API.csproj" />
     <ProjectReference Include="..\Modules\Clients\Infrastructure\InvoiceSystem.Clients.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Expenses\API\InvoiceSystem.Expenses.API.csproj" />
+    <ProjectReference Include="..\Modules\Expenses\Infrastructure\InvoiceSystem.Expenses.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Reporting\API\InvoiceSystem.Reporting.API.csproj" />
+    <ProjectReference Include="..\Modules\Dashboard\API\InvoiceSystem.Dashboard.API.csproj" />
+    <ProjectReference Include="..\Modules\Storage\API\InvoiceSystem.Storage.API.csproj" />
   </ItemGroup>
 
 </Project>

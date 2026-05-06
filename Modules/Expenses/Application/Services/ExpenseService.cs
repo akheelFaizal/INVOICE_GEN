@@ -53,7 +53,7 @@ public class ExpenseService : IExpenseService
         var category = await _categoryRepository.GetByIdAsync(expense.CategoryId);
         expense.Category = category!;
 
-        return Result<Result<ExpenseResponse>>.SuccessResult(MapToResponse(expense));
+        return Result<ExpenseResponse>.SuccessResult(MapToResponse(expense));
     }
 
     public async Task<Result<ExpenseResponse>> UpdateExpenseAsync(Guid id, UpdateExpenseRequest request)

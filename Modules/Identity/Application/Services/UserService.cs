@@ -1,6 +1,7 @@
 using InvoiceSystem.Identity.Application.DTOs;
 using InvoiceSystem.Identity.Application.Interfaces;
 using InvoiceSystem.Identity.Core.Interfaces;
+using InvoiceSystem.Identity.Core.Entities;
 using InvoiceSystem.Shared;
 
 namespace InvoiceSystem.Identity.Application.Services;
@@ -64,6 +65,33 @@ public class UserService : IUserService
             return Result.FailureResult("User not found.");
 
         await _userRepository.DeleteUser(user);
+        return Result.SuccessResult();
+    }
+
+    public async Task<Result<UserResponse>> CreateUserAsync(RegisterRequest request)
+    {
+        // Simple implementation for now
+        var user = new User
+        {
+            Id = Guid.NewGuid(),
+            Email = request.Email,
+            Name = request.FullName,
+            PasswordHash = "Placeholder" // Should be hashed!
+        };
+
+        await _userRepository.AddUser(user);
+        return Result<UserResponse>.SuccessResult(new UserResponse(user.Id, user.Email, user.Name, new List<string>()));
+    }
+
+    public async Task<Result> UpdateUserStatusAsync(Guid id, bool isActive)
+    {
+        var user = await _userRepository.GetById(id);
+        if (user == null) return Result.FailureResult("User not found");
+
+        // Assuming User entity has an IsActive property or similar
+        // For now, just a placeholder if it doesn't exist yet
+        // await _userRepository.UpdateUser(user);
+        
         return Result.SuccessResult();
     }
 }

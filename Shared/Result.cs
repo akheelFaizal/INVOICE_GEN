@@ -15,4 +15,6 @@ public class Result<T>
 public class Result : Result<object>
 {
     public static Result SuccessResult() => new() { Success = true };
+    public static new Result FailureResult(string error, List<string> details = null) => 
+        new() { Error = error, Success = false, Details = details ?? new() };
 }

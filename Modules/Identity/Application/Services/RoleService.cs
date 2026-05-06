@@ -98,7 +98,7 @@ public class RoleService : IRoleService
         return Result<IEnumerable<PermissionResponse>>.SuccessResult(responses);
     }
 
-    public async Task<Result> AssignPermissionsToRoleAsync(Guid id, IEnumerable<Guid> permissionIds)
+    public async Task<Result> AssignPermissionsToRoleAsync(Guid id, List<Guid> permissionIds)
     {
         var role = await _roleRepository.GetByIdAsync(id);
         if (role == null)

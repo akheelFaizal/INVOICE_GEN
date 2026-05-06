@@ -41,7 +41,8 @@ public class AuthService : IAuthService
         {
             Token = refreshTokenStr,
             UserId = user.Id,
-            ExpiresAt = DateTime.UtcNow.AddDays(7),
+            User = user,
+            ExpiryDate = DateTime.UtcNow.AddDays(7),
             IsRevoked = false
         };
 
@@ -79,7 +80,8 @@ public class AuthService : IAuthService
         {
             Token = refreshTokenStr,
             UserId = user.Id,
-            ExpiresAt = DateTime.UtcNow.AddDays(7),
+            User = user,
+            ExpiryDate = DateTime.UtcNow.AddDays(7),
             IsRevoked = false
         };
 
@@ -109,7 +111,7 @@ public class AuthService : IAuthService
     public async Task<Result<AuthResponse>> RefreshTokenAsync(string token)
     {
         var storedToken = await _refreshTokenRepository.GetByToken(token);
-        if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiresAt <= DateTime.UtcNow)
+        if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiryDate <= DateTime.UtcNow)
         {
             return Result<AuthResponse>.FailureResult("Invalid or expired refresh token.");
         }
@@ -127,7 +129,8 @@ public class AuthService : IAuthService
         {
             Token = newRefreshTokenStr,
             UserId = user.Id,
-            ExpiresAt = DateTime.UtcNow.AddDays(7),
+            User = user,
+            ExpiryDate = DateTime.UtcNow.AddDays(7),
             IsRevoked = false
         };
 
