@@ -1,0 +1,40 @@
+@Host = http://localhost:5004
+@Token = PASTE_JWT_TOKEN_HERE
+
+### --- DASHBOARD ---
+
+# @name DashboardKPIs
+GET {{Host}}/api/dashboard/kpis
+Authorization: Bearer {{Token}}
+
+###
+
+# @name RecentInvoices
+GET {{Host}}/api/dashboard/recent-invoices
+Authorization: Bearer {{Token}}
+
+### --- SEARCH ---
+
+# @name GlobalSearch
+GET {{Host}}/api/search?query=Silicon
+Authorization: Bearer {{Token}}
+
+### --- STORAGE ---
+
+# @name UploadReceipt
+POST {{Host}}/api/uploads/receipt
+Authorization: Bearer {{Token}}
+Content-Type: multipart/form-data; boundary=boundary
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="receipt.jpg"
+Content-Type: image/jpeg
+
+< ./receipt.jpg
+--boundary--
+
+###
+
+# @name DownloadFile
+GET {{Host}}/api/uploads/PASTE_FILE_ID_HERE
+Authorization: Bearer {{Token}}

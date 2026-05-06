@@ -196,3 +196,5 @@ C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\obj\Debug\net10.0
 C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\obj\Debug\net10.0\WebAPI.pdb
 C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\obj\Debug\net10.0\WebAPI.genruntimeconfig.cache
 C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\obj\Debug\net10.0\ref\WebAPI.dll
+C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\bin\Debug\net10.0\runtimes\linux-musl-riscv64\native\libe_sqlite3.so
+C:\Users\AKHEEL\OneDrive\Desktop\PROJECTS\InvoiceSystem\WebAPI\bin\Debug\net10.0\runtimes\linux-riscv64\native\libe_sqlite3.so

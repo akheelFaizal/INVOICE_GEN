@@ -1,0 +1,46 @@
+@Host = http://localhost:5004
+@Token = PASTE_JWT_TOKEN_HERE
+
+# @name GetClients
+GET {{Host}}/api/clients
+Authorization: Bearer {{Token}}
+
+###
+
+# @name CreateClient
+POST {{Host}}/api/clients
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "name": "Global Tech Solutions",
+    "email": "contact@globaltech.com",
+    "phone": "+1234567890",
+    "address": "123 Tech Lane, Silicon Valley"
+}
+
+###
+
+# @name GetClientById
+GET {{Host}}/api/clients/PASTE_CLIENT_ID_HERE
+Authorization: Bearer {{Token}}
+
+###
+
+# @name UpdateClient
+PUT {{Host}}/api/clients/PASTE_CLIENT_ID_HERE
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "name": "Global Tech Solutions LLC",
+    "email": "ops@globaltech.com",
+    "phone": "+1234567890",
+    "address": "456 Enterprise Way, Austin"
+}
+
+###
+
+# @name DeleteClient
+DELETE {{Host}}/api/clients/PASTE_CLIENT_ID_HERE
+Authorization: Bearer {{Token}}

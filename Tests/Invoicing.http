@@ -1,0 +1,93 @@
+@Host = http://localhost:5004
+@Token = PASTE_JWT_TOKEN_HERE
+
+# @name GetInvoices
+GET {{Host}}/api/invoices
+Authorization: Bearer {{Token}}
+
+###
+
+# @name CreateInvoice
+POST {{Host}}/api/invoices
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "clientId": "PASTE_CLIENT_ID_HERE",
+    "description": "Quarterly Software Maintenance",
+    "amount": 1500.00,
+    "dueDate": "2026-06-01T00:00:00Z"
+}
+
+###
+
+# @name GetInvoiceById
+GET {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE
+Authorization: Bearer {{Token}}
+
+###
+
+# @name AddInvoiceItem
+POST {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/items
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "description": "Server Hosting",
+    "quantity": 3,
+    "unitPrice": 100.00
+}
+
+###
+
+# @name UpdateInvoiceItem
+PUT {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/items/PASTE_ITEM_ID_HERE
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "description": "Server Hosting (Updated)",
+    "quantity": 5,
+    "unitPrice": 90.00
+}
+
+###
+
+# @name RecordPayment
+POST {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/payments
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "amount": 500.00,
+    "paymentDate": "2026-05-10T00:00:00Z",
+    "method": "Bank Transfer",
+    "reference": "TXN-998877"
+}
+
+###
+
+# @name UpdateStatus
+PATCH {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/status
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+"Paid"
+
+###
+
+# @name GetInvoiceBalance
+GET {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/balance
+Authorization: Bearer {{Token}}
+
+###
+
+# @name GetInvoicePdf
+GET {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE/pdf
+Authorization: Bearer {{Token}}
+
+###
+
+# @name DeleteInvoice
+DELETE {{Host}}/api/invoices/PASTE_INVOICE_ID_HERE
+Authorization: Bearer {{Token}}

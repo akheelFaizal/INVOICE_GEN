@@ -1,0 +1,26 @@
+@Host = http://localhost:5004
+@Token = PASTE_JWT_TOKEN_HERE
+
+### --- REPORTS ---
+
+# @name FinancialSummary
+GET {{Host}}/api/reports/financial-summary
+Authorization: Bearer {{Token}}
+
+###
+
+# @name InvoiceReport
+GET {{Host}}/api/reports/invoices?status=Paid&startDate=2026-01-01
+Authorization: Bearer {{Token}}
+
+### --- ANALYTICS ---
+
+# @name RevenueVsExpenses
+GET {{Host}}/api/analytics/revenue-vs-expenses
+Authorization: Bearer {{Token}}
+
+###
+
+# @name TopClients
+GET {{Host}}/api/analytics/top-clients
+Authorization: Bearer {{Token}}

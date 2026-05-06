@@ -1,0 +1,83 @@
+@Host = http://localhost:5004
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImE4ZDM3NTNjLWJhNzktNGEwMi04MTgwLTI5MzdkNTIxY2I1NSIsImV4cCI6MTc3ODA5ODc0OCwiaXNzIjoiSW52b2ljZVN5c3RlbSIsImF1ZCI6Ikludm9pY2VTeXN0ZW0ifQ.ZncsVdzSwtqwN-QT_RtMIQ2lPeRN0MKbGfVxL9R6u1Q
+
+### --- AUTHENTICATION ---
+
+# @name Register
+POST {{Host}}/api/auth/register
+Content-Type: application/json
+
+{
+    "fullName": "Admin User",
+    "email": "admin@example.com",
+    "password": "Password123!"
+}
+
+###
+
+# @name Login
+POST {{Host}}/api/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "Password123!"
+}
+
+###
+
+# @name RefreshToken
+POST {{Host}}/api/auth/refresh-token
+Content-Type: application/json
+
+{
+    "refreshToken": "PASTE_REFRESH_TOKEN_HERE"
+}
+
+### --- USER MANAGEMENT (Admin Only) ---
+
+# @name GetAllUsers
+GET {{Host}}/api/users
+Authorization: Bearer {{Token}}
+
+###
+
+# @name GetUserById
+GET {{Host}}/api/users/a8d3753c-ba79-4a02-8180-2937d521cb55
+Authorization: Bearer {{Token}}
+
+###
+
+# @name UpdateUser
+PUT {{Host}}/api/users/PASTE_USER_ID_HERE
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "fullName": "Admin User Updated",
+    "roles": ["Admin"]
+}
+
+###
+
+# @name DeleteUser
+DELETE {{Host}}/api/users/PASTE_USER_ID_HERE
+Authorization: Bearer {{Token}}
+
+### --- ROLES & PERMISSIONS ---
+
+# @name GetRoles
+GET {{Host}}/api/roles
+Authorization: Bearer {{Token}}
+
+###
+
+# @name AssignPermissions
+POST {{Host}}/api/roles/PASTE_ROLE_ID_HERE/permissions
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+[
+    "PASTE_PERMISSION_ID_1",
+    "PASTE_PERMISSION_ID_2"
+]

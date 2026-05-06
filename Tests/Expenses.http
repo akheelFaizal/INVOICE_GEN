@@ -1,0 +1,76 @@
+@Host = http://localhost:5004
+@Token = PASTE_JWT_TOKEN_HERE
+
+### --- EXPENSE CATEGORIES ---
+
+# @name GetCategories
+GET {{Host}}/api/expense-categories
+Authorization: Bearer {{Token}}
+
+###
+
+# @name CreateCategory
+POST {{Host}}/api/expense-categories
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "name": "Travel & Logistics"
+}
+
+###
+
+# @name UpdateCategory
+PUT {{Host}}/api/expense-categories/PASTE_CATEGORY_ID_HERE
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "name": "Business Travel"
+}
+
+### --- EXPENSES ---
+
+# @name GetExpenses
+GET {{Host}}/api/expenses
+Authorization: Bearer {{Token}}
+
+###
+
+# @name CreateExpense
+POST {{Host}}/api/expenses
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "description": "Flight to NYC Conference",
+    "amount": 850.00,
+    "date": "2026-05-15T00:00:00Z",
+    "categoryId": "PASTE_CATEGORY_ID_HERE"
+}
+
+###
+
+# @name GetExpenseById
+GET {{Host}}/api/expenses/PASTE_EXPENSE_ID_HERE
+Authorization: Bearer {{Token}}
+
+###
+
+# @name UpdateExpense
+PUT {{Host}}/api/expenses/PASTE_EXPENSE_ID_HERE
+Authorization: Bearer {{Token}}
+Content-Type: application/json
+
+{
+    "description": "Flight to NYC (Business Class Upgrade)",
+    "amount": 1200.00,
+    "date": "2026-05-15T00:00:00Z",
+    "categoryId": "PASTE_CATEGORY_ID_HERE"
+}
+
+###
+
+# @name DeleteExpense
+DELETE {{Host}}/api/expenses/PASTE_EXPENSE_ID_HERE
+Authorization: Bearer {{Token}}
