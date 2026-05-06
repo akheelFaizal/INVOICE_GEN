@@ -1,5 +1,5 @@
 @Host = http://localhost:5004
-@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiYWRtaW5AZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6ImE4ZDM3NTNjLWJhNzktNGEwMi04MTgwLTI5MzdkNTIxY2I1NSIsImV4cCI6MTc3ODA5ODc0OCwiaXNzIjoiSW52b2ljZVN5c3RlbSIsImF1ZCI6Ikludm9pY2VTeXN0ZW0ifQ.ZncsVdzSwtqwN-QT_RtMIQ2lPeRN0MKbGfVxL9R6u1Q
+@Token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoic3VwZXJhZG1pbkBleGFtcGxlLmNvbSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiYzU3M2NjZWUtMmRjNi00OTI2LWI1ZGEtY2MxM2RmOTRkNTg0IiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWRtaW4iLCJleHAiOjE3NzgwOTk5MjksImlzcyI6Ikludm9pY2VTeXN0ZW0iLCJhdWQiOiJJbnZvaWNlU3lzdGVtIn0.JKa5n7x4zKZ-6LzsjT1Ivew2CH7vT4pd4Z_yJzYtgSQ
 
 ### --- AUTHENTICATION ---
 
@@ -8,9 +8,9 @@ POST {{Host}}/api/auth/register
 Content-Type: application/json
 
 {
-    "fullName": "Admin User",
-    "email": "admin@example.com",
-    "password": "Password123!"
+    "fullName": "akheel",
+    "email": "akheel@example.com",
+    "password": "akh@123"
 }
 
 ###
@@ -20,7 +20,7 @@ POST {{Host}}/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin@example.com",
+    "email": "superadmin@example.com",
     "password": "Password123!"
 }
 
@@ -43,25 +43,25 @@ Authorization: Bearer {{Token}}
 ###
 
 # @name GetUserById
-GET {{Host}}/api/users/a8d3753c-ba79-4a02-8180-2937d521cb55
+GET {{Host}}/api/users/ad3f65de-c7b0-4201-aeba-e974241fa625
 Authorization: Bearer {{Token}}
 
 ###
 
 # @name UpdateUser
-PUT {{Host}}/api/users/PASTE_USER_ID_HERE
+PUT {{Host}}/api/users/ad3f65de-c7b0-4201-aeba-e974241fa625
 Authorization: Bearer {{Token}}
 Content-Type: application/json
 
 {
-    "fullName": "Admin User Updated",
-    "roles": ["Admin"]
+    "fullName": "Akheel",
+    "roles": ["Accountant"]
 }
 
 ###
 
 # @name DeleteUser
-DELETE {{Host}}/api/users/PASTE_USER_ID_HERE
+DELETE {{Host}}/api/users/a8d3753c-ba79-4a02-8180-2937d521cb55
 Authorization: Bearer {{Token}}
 
 ### --- ROLES & PERMISSIONS ---

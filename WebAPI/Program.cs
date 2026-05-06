@@ -115,6 +115,21 @@ builder.Services.AddAuthorization(options =>
 
 var app = builder.Build();
 
+// Seed Database
+using (var scope = app.Services.CreateScope())
+{
+    try 
+    {
+        var identityContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+        await identityContext.Database.MigrateAsync();
+        await IdentitySeeder.SeedAsync(identityContext);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred during seeding: {ex.Message}");
+    }
+}
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
