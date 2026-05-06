@@ -11,4 +11,7 @@ public class Invoice
     public DateTime DueDate { get; set; }
     public string Description { get; set; } = string.Empty;
     public string Status { get; set; } = "Pending";
+
+    public ICollection<InvoiceItem> Items { get; set; } = new List<InvoiceItem>();
+    public ICollection<Payment> Payments { get; set; } = new List<Payment>();
 }

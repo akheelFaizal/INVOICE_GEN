@@ -20,19 +20,27 @@ public class InvoiceRepository : IInvoiceRepository
 
     public async Task<IEnumerable<Invoice>> GetAllAsync()
     {
-        return await _context.Invoices.ToListAsync();
+        return await _context.Invoices
+            .Include(i => i.Items)
+            .Include(i => i.Payments)
+            .ToListAsync();
     }
 
     public async Task<IEnumerable<Invoice>> GetByClientIdAsync(Guid clientId)
     {
         return await _context.Invoices
+            .Include(i => i.Items)
+            .Include(i => i.Payments)
             .Where(i => i.ClientId == clientId)
             .ToListAsync();
     }
 
     public async Task<Invoice?> GetByIdAsync(Guid id)
     {
-        return await _context.Invoices.FindAsync(id);
+        return await _context.Invoices
+            .Include(i => i.Items)
+            .Include(i => i.Payments)
+            .FirstOrDefaultAsync(i => i.Id == id);
     }
 
     public async Task AddAsync(Invoice invoice)
@@ -50,6 +58,34 @@ public class InvoiceRepository : IInvoiceRepository
     public async Task DeleteAsync(Invoice invoice)
     {
         _context.Invoices.Remove(invoice);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task AddItemAsync(InvoiceItem item)
+    {
+        await _context.InvoiceItems.AddAsync(item);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task UpdateItemAsync(InvoiceItem item)
+    {
+        _context.InvoiceItems.Update(item);
+        await _context.SaveChangesAsync();
+    }
+
+    public async Task RemoveItemAsync(Guid itemId)
+    {
+        var item = await _context.InvoiceItems.FindAsync(itemId);
+        if (item != null)
+        {
+            _context.InvoiceItems.Remove(item);
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    public async Task AddPaymentAsync(Payment payment)
+    {
+        await _context.Payments.AddAsync(payment);
         await _context.SaveChangesAsync();
     }
 }

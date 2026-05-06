@@ -13,4 +13,9 @@ public interface IInvoiceRepository
     Task AddAsync(Invoice invoice);
     Task UpdateAsync(Invoice invoice);
     Task DeleteAsync(Invoice invoice);
+    
+    Task AddItemAsync(InvoiceItem item);
+    Task UpdateItemAsync(InvoiceItem item);
+    Task RemoveItemAsync(Guid itemId);
+    Task AddPaymentAsync(Payment payment);
 }

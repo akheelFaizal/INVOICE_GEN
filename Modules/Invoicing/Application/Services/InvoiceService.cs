@@ -19,6 +19,22 @@ public class InvoiceService : IInvoiceService
         _invoiceRepository = invoiceRepository;
     }
 
+    public async Task<Result<IEnumerable<InvoiceResponse>>> GetInvoicesAsync()
+    {
+        var invoices = await _invoiceRepository.GetAllAsync();
+        var response = invoices.Select(MapToResponse);
+
+        return Result<IEnumerable<InvoiceResponse>>.SuccessResult(response);
+    }
+
+    public async Task<Result<InvoiceResponse>> GetInvoiceByIdAsync(Guid id)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(id);
+        if (invoice == null) return Result<InvoiceResponse>.FailureResult("Invoice not found");
+
+        return Result<InvoiceResponse>.SuccessResult(MapToResponse(invoice));
+    }
+
     public async Task<Result<InvoiceResponse>> CreateInvoiceAsync(CreateInvoiceRequest request)
     {
         var invoice = new Invoice
@@ -34,16 +50,132 @@ public class InvoiceService : IInvoiceService
 
         await _invoiceRepository.AddAsync(invoice);
 
-        var response = MapToResponse(invoice);
-        return Result<InvoiceResponse>.SuccessResult(response);
+        return Result<InvoiceResponse>.SuccessResult(MapToResponse(invoice));
     }
 
-    public async Task<Result<IEnumerable<InvoiceResponse>>> GetInvoicesAsync()
+    public async Task<Result<InvoiceResponse>> UpdateInvoiceAsync(Guid id, UpdateInvoiceRequest request)
     {
-        var invoices = await _invoiceRepository.GetAllAsync();
-        var response = invoices.Select(MapToResponse);
+        var invoice = await _invoiceRepository.GetByIdAsync(id);
+        if (invoice == null) return Result<InvoiceResponse>.FailureResult("Invoice not found");
 
-        return Result<IEnumerable<InvoiceResponse>>.SuccessResult(response);
+        invoice.Amount = request.Amount;
+        invoice.DueDate = request.DueDate;
+        invoice.Description = request.Description;
+
+        await _invoiceRepository.UpdateAsync(invoice);
+
+        return Result<InvoiceResponse>.SuccessResult(MapToResponse(invoice));
+    }
+
+    public async Task<Result> DeleteInvoiceAsync(Guid id)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(id);
+        if (invoice == null) return Result.FailureResult("Invoice not found");
+
+        await _invoiceRepository.DeleteAsync(invoice);
+        return Result.SuccessResult();
+    }
+
+    public async Task<Result<InvoiceItemResponse>> AddItemAsync(Guid invoiceId, InvoiceItemRequest request)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+        if (invoice == null) return Result<InvoiceItemResponse>.FailureResult("Invoice not found");
+
+        var item = new InvoiceItem
+        {
+            Id = Guid.NewGuid(),
+            InvoiceId = invoiceId,
+            Description = request.Description,
+            Quantity = request.Quantity,
+            UnitPrice = request.UnitPrice
+        };
+
+        await _invoiceRepository.AddItemAsync(item);
+        
+        // Optionally update invoice amount
+        invoice.Amount += item.Total;
+        await _invoiceRepository.UpdateAsync(invoice);
+
+        return Result<InvoiceItemResponse>.SuccessResult(MapToItemResponse(item));
+    }
+
+    public async Task<Result<InvoiceItemResponse>> UpdateItemAsync(Guid invoiceId, Guid itemId, InvoiceItemRequest request)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+        if (invoice == null) return Result<InvoiceItemResponse>.FailureResult("Invoice not found");
+
+        var item = invoice.Items.FirstOrDefault(i => i.Id == itemId);
+        if (item == null) return Result<InvoiceItemResponse>.FailureResult("Item not found");
+
+        // Adjust invoice amount
+        invoice.Amount -= item.Total;
+        
+        item.Description = request.Description;
+        item.Quantity = request.Quantity;
+        item.UnitPrice = request.UnitPrice;
+
+        invoice.Amount += item.Total;
+
+        await _invoiceRepository.UpdateItemAsync(item);
+        await _invoiceRepository.UpdateAsync(invoice);
+
+        return Result<InvoiceItemResponse>.SuccessResult(MapToItemResponse(item));
+    }
+
+    public async Task<Result> RemoveItemAsync(Guid invoiceId, Guid itemId)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+        if (invoice == null) return Result.FailureResult("Invoice not found");
+
+        var item = invoice.Items.FirstOrDefault(i => i.Id == itemId);
+        if (item == null) return Result.FailureResult("Item not found");
+
+        invoice.Amount -= item.Total;
+        
+        await _invoiceRepository.RemoveItemAsync(itemId);
+        await _invoiceRepository.UpdateAsync(invoice);
+
+        return Result.SuccessResult();
+    }
+
+    public async Task<Result> UpdateStatusAsync(Guid id, UpdateStatusRequest request)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(id);
+        if (invoice == null) return Result.FailureResult("Invoice not found");
+
+        invoice.Status = request.Status;
+        await _invoiceRepository.UpdateAsync(invoice);
+
+        return Result.SuccessResult();
+    }
+
+    public async Task<Result<IEnumerable<PaymentResponse>>> GetPaymentsAsync(Guid invoiceId)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+        if (invoice == null) return Result<IEnumerable<PaymentResponse>>.FailureResult("Invoice not found");
+
+        return Result<IEnumerable<PaymentResponse>>.SuccessResult(invoice.Payments.Select(MapToPaymentResponse));
+    }
+
+    public async Task<Result<PaymentResponse>> AddPaymentAsync(Guid invoiceId, PaymentRequest request)
+    {
+        var invoice = await _invoiceRepository.GetByIdAsync(invoiceId);
+        if (invoice == null) return Result<PaymentResponse>.FailureResult("Invoice not found");
+
+        var payment = new Payment
+        {
+            Id = Guid.NewGuid(),
+            InvoiceId = invoiceId,
+            Amount = request.Amount,
+            Date = DateTime.UtcNow,
+            PaymentMethod = request.PaymentMethod
+        };
+
+        await _invoiceRepository.AddPaymentAsync(payment);
+
+        // Logic for auto-updating status if fully paid could go here
+        
+        return Result<PaymentResponse>.SuccessResult(MapToPaymentResponse(payment));
     }
 
     private static InvoiceResponse MapToResponse(Invoice invoice)
@@ -55,7 +187,19 @@ public class InvoiceService : IInvoiceService
             invoice.Date,
             invoice.DueDate,
             invoice.Description,
-            invoice.Status
+            invoice.Status,
+            invoice.Items.Select(MapToItemResponse),
+            invoice.Payments.Select(MapToPaymentResponse)
         );
+    }
+
+    private static InvoiceItemResponse MapToItemResponse(InvoiceItem item)
+    {
+        return new InvoiceItemResponse(item.Id, item.Description, item.Quantity, item.UnitPrice, item.Total);
+    }
+
+    private static PaymentResponse MapToPaymentResponse(Payment payment)
+    {
+        return new PaymentResponse(payment.Id, payment.Amount, payment.Date, payment.PaymentMethod);
     }
 }
